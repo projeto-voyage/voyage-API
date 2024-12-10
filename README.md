@@ -1,73 +1,66 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Voyage-API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**Voyage-API** é a API central de uma plataforma de turismo inteligente, projetada para gerar roteiros personalizados com base em preferências de tempo, destino e orçamento dos usuários. Desenvolvida em **NestJS** e utilizando **PostgreSQL** como banco de dados, a API integra sistemas externos e oferece uma solução escalável e eficiente para planejamento de viagens.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Visão Geral
 
-## Description
+A plataforma tem como objetivo transformar o planejamento de viagens, proporcionando aos usuários **roteiros personalizados** e otimizados, com base em suas necessidades individuais, como tempo disponível e orçamento. Além disso, a solução busca atender à crescente demanda por turismo sustentável, oferecendo parcerias com empresas de turismo local e sustentável.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Objetivo do Projeto
 
-## Installation
+Desenvolver uma solução digital inovadora que facilite a criação de roteiros personalizados para turistas, maximizando o uso do tempo e orçamento dos usuários. O projeto visa também integrar diferentes serviços turísticos e proporcionar uma experiência de viagem sem interrupções, tanto online quanto offline.
 
-```bash
-$ npm install
-```
+## Funcionalidades
 
-## Running the app
+- **Geração de roteiros personalizados** com base em dados do usuário.
+- **Integração com plataformas externas** de reservas e serviços turísticos.
+- Parcerias com **empresas de turismo sustentável** e fornecedores locais.
+- Acesso **offline ao roteiro**, garantindo consulta durante a viagem.
+- **Suporte ao usuário via assistentes virtuais** para assistência contínua.
 
-```bash
-# development
-$ npm run start
+## Branches
 
-# watch mode
-$ npm run start:dev
+O repositório do projeto possui **duas branches principais**:
 
-# production mode
-$ npm run start:prod
-```
+- **`main`**: Esta é a branch principal, onde o código está sempre **estável e pronto para produção**. Somente alterações que passaram por um processo de revisão rigoroso e testes completos devem ser feitas nessa branch. Ela reflete a versão atual do projeto que está em produção ou pronta para ser implementada em um ambiente de produção.
 
-## Test
+- **`development`**: A branch de desenvolvimento é onde **todas as novas funcionalidades** e **alterações** iniciais são feitas. Essa branch serve como o espaço para os desenvolvedores colaborarem nas melhorias e ajustes do sistema antes de qualquer código ser integrado à branch principal. A partir da branch de desenvolvimento, as versões de testes são feitas e as funcionalidades são preparadas para produção.
 
-```bash
-# unit tests
-$ npm run test
+### Por que duas branches?
 
-# e2e tests
-$ npm run test:e2e
+Ter duas branches permite um processo de desenvolvimento mais organizado e controlado. A **branch de desenvolvimento** garante que o código em produção permaneça estável, enquanto as novas funcionalidades podem ser trabalhadas sem impactar o sistema ao vivo. Depois de testadas e revisadas, as mudanças na branch de desenvolvimento são **mescladas** com a **branch principal** para garantir que o sistema esteja pronto para a produção com a menor quantidade de erros possível.
 
-# test coverage
-$ npm run test:cov
-```
+## Stakeholders
 
-## Support
+- **Internos**: Fundadores, líderes, equipe de IA, designers, marketing e suporte ao cliente.
+- **Externos**: Usuários finais (turistas), agências de viagem e provedores de serviços locais.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Oportunidades
 
-## Stay in touch
+- **Mercado**: O turismo personalizado e sustentável está em ascensão.
+- **Tecnologia**: Integração com plataformas de reserva e uso de **big data** para aprimorar a experiência do usuário.
+- **Parcerias**: Colaborações com agências de turismo e organizações sustentáveis.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Visão e Missão
 
-## License
+- **Visão**: Ser a solução líder para o planejamento de viagens personalizadas, acessíveis e sustentáveis.
+- **Missão**: Proporcionar uma experiência de viagem única e sustentável, utilizando IA para personalização e otimização.
 
-Nest is [MIT licensed](LICENSE).
+## Métricas de Sucesso
+
+- Crescimento da base de usuários.
+- Feedback positivo dos usuários.
+- Expansão de parcerias estratégicas.
+- Retorno sobre investimento para os stakeholders.
+
+---
+
+## Tecnologias Utilizadas
+
+### NestJS
+
+O **NestJS** é um framework para construir aplicações Node.js escaláveis, eficiente e de fácil manutenção. Ele proporciona uma estrutura sólida para o desenvolvimento de APIs RESTful e microserviços.
+
+### PostgreSQL
+
+**PostgreSQL** é um sistema de gerenciamento de banco de dados relacional poderoso e de código aberto. É a escolha ideal para o gerenciamento eficiente e escalável dos dados do projeto, garantindo alta disponibilidade e integridade.
