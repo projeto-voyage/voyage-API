@@ -46,11 +46,9 @@ Desenvolver uma solução digital inovadora que facilite a criação de roteiros
 ## Tecnologias Utilizadas
 
 ### NestJS
-![NestJS Logo](https://upload.wikimedia.org/wikipedia/commons/3/34/NestJS_logo.svg)
 
 O **NestJS** é um framework para construir aplicações Node.js escaláveis, eficiente e de fácil manutenção. Ele proporciona uma estrutura sólida para o desenvolvimento de APIs RESTful e microserviços.
 
 ### PostgreSQL
-![PostgreSQL Logo](https://upload.wikimedia.org/wikipedia/commons/a/a4/Postgresql_elephant.svg)
 
 **PostgreSQL** é um sistema de gerenciamento de banco de dados relacional poderoso e de código aberto. É a escolha ideal para o gerenciamento eficiente e escalável dos dados do projeto, garantindo alta disponibilidade e integridade.
