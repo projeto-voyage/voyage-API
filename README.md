@@ -18,6 +18,18 @@ Desenvolver uma solução digital inovadora que facilite a criação de roteiros
 - Acesso **offline ao roteiro**, garantindo consulta durante a viagem.
 - **Suporte ao usuário via assistentes virtuais** para assistência contínua.
 
+## Branches
+
+O repositório do projeto possui **duas branches principais**:
+
+- **`main`**: Esta é a branch principal, onde o código está sempre **estável e pronto para produção**. Somente alterações que passaram por um processo de revisão rigoroso e testes completos devem ser feitas nessa branch. Ela reflete a versão atual do projeto que está em produção ou pronta para ser implementada em um ambiente de produção.
+
+- **`development`**: A branch de desenvolvimento é onde **todas as novas funcionalidades** e **alterações** iniciais são feitas. Essa branch serve como o espaço para os desenvolvedores colaborarem nas melhorias e ajustes do sistema antes de qualquer código ser integrado à branch principal. A partir da branch de desenvolvimento, as versões de testes são feitas e as funcionalidades são preparadas para produção.
+
+### Por que duas branches?
+
+Ter duas branches permite um processo de desenvolvimento mais organizado e controlado. A **branch de desenvolvimento** garante que o código em produção permaneça estável, enquanto as novas funcionalidades podem ser trabalhadas sem impactar o sistema ao vivo. Depois de testadas e revisadas, as mudanças na branch de desenvolvimento são **mescladas** com a **branch principal** para garantir que o sistema esteja pronto para a produção com a menor quantidade de erros possível.
+
 ## Stakeholders
 
 - **Internos**: Fundadores, líderes, equipe de IA, designers, marketing e suporte ao cliente.
