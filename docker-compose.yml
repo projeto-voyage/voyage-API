@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15  # Usando a imagem do PostgreSQL versão 15
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}  # Variáveis de ambiente para o usuário do banco
+      POSTGRES_PASSWORD: ${DB_PASSWORD}  # Senha para o banco
+      POSTGRES_DB: ${DB_DATABASE}  # Nome do banco de dados
+    ports:
+      - "5432:5432"  # Mapear a porta 5432 do container para a 5432 da máquina host
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistência de dados (volume)
+    networks:
+      - app-network  # Definir a rede do Docker (pode ser útil para outros containers se comunicarem)
+
+volumes:
+  postgres_data: {}  # Definição do volume para persistir dados do PostgreSQL
+
+networks:
+  app-network:
+    driver: bridge  # Definindo a rede (opcional)
