@@ -7,12 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
-  const isCorsEnabled = configService.get<boolean>('CORS_ENABLED');
-  if (isCorsEnabled) {
-    app.enableCors();
-  } else {
-    console.log('CORS disabled');
-  }
+  setCorsPolicy();
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -23,5 +18,14 @@ async function bootstrap() {
 
   const port = configService.get<number>('APP_PORT');
   await app.listen(port);
+
+  function setCorsPolicy() {
+    const isCorsEnabled = configService.get<boolean>('CORS_ENABLED');
+    if (isCorsEnabled) {
+      app.enableCors();
+    } else {
+      console.log('CORS disabled');
+    }
+  }
 }
 bootstrap();
