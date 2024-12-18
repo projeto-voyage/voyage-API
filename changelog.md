@@ -7,7 +7,8 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui. Este arquiv
 
 ## [1.0.0] - 2024-12-13
 ### Added
-- [X] Descrição de novas funcionalidades ou arquivos adicionados.
+- Entidade `User` criada com validações usando `class-validator` no DTO.
+- Método para geração de IDs aleatórios implementado, utilizando `randomUUID` do módulo `crypto` do Node.js.
 
 ### Changed
 - [X] Detalhes sobre mudanças em funcionalidades existentes.
@@ -28,3 +29,5 @@ Usamos **Semantic Versioning**:
 - **Major (X.0.0)**: Mudanças que quebram compatibilidade.
 - **Minor (0.X.0)**: Funcionalidades novas, compatíveis com versões anteriores.
 - **Patch (0.0.X)**: Correções de bugs ou melhorias menores.
+
+---
