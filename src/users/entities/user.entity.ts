@@ -5,7 +5,6 @@ import {
   Entity,
   PrimaryColumn,
 } from 'typeorm';
-import { randomUUID } from 'node:crypto';
 
 @Entity('users')
 export class User {
@@ -23,9 +22,4 @@ export class User {
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @BeforeInsert()
-  generateId() {
-    this.id = randomUUID();
-  }
 }
