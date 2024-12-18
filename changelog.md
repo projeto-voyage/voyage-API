@@ -1,3 +1,7 @@
+Aqui está o **Changelog** atualizado com as alterações realizadas, incluindo os comandos necessários para executar as migrations:
+
+---
+
 # Changelog
 
 Todas as mudanças notáveis deste projeto serão documentadas aqui. Este arquivo segue o formato [Keep a Changelog](https://keepachangelog.com/) e respeita a versão [Semantic Versioning](https://semver.org/).
@@ -5,22 +9,35 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui. Este arquiv
 ## [Unreleased]
 - Adicione aqui as mudanças planejadas ou em andamento.
 
+## [1.1.0] - 2024-12-18
+### Added
+- Criada migration para a entidade `User` com suporte a banco de dados PostgreSQL.
+- Comandos configurados no `package.json` para gerenciamento de migrations com TypeORM:
+  - **`typeorm:create-migration`**: Cria uma nova migration.  
+    ```bash
+    npm run typeorm:create-migration --name=MigrationName
+    ```
+  - **`typeorm:run-migrations`**: Executa as migrations pendentes.  
+    ```bash
+    npm run typeorm:run-migrations
+    ```
+  - **`typeorm:revert-migrations`**: Reverte a última migration aplicada.  
+    ```bash
+    npm run typeorm:revert-migrations
+    ```
+
+### Changed
+- Arquivo de configuração `typeOrm.config.ts` atualizado para usar variáveis de ambiente no contexto Docker.
+
+### Fixed
+- Corrigida configuração incorreta do timestamp na tabela `users`.
+
+---
+
 ## [1.0.0] - 2024-12-13
 ### Added
 - Entidade `User` criada com validações usando `class-validator` no DTO.
 - Método para geração de IDs aleatórios implementado, utilizando `randomUUID` do módulo `crypto` do Node.js.
-
-### Changed
-- [X] Detalhes sobre mudanças em funcionalidades existentes.
-
-### Fixed
-- [X] Lista de bugs corrigidos.
-
-### Deprecated
-- [X] Funcionalidades ou APIs marcadas como obsoletas.
-
-### Removed
-- [X] Itens ou funcionalidades removidas do projeto.
 
 ---
 
@@ -31,3 +48,5 @@ Usamos **Semantic Versioning**:
 - **Patch (0.0.X)**: Correções de bugs ou melhorias menores.
 
 ---
+
+Se precisar de mais ajustes ou detalhes, é só avisar! 🚀
