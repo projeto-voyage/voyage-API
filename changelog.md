@@ -1,5 +1,3 @@
-Aqui está o **Changelog** atualizado com as alterações realizadas, incluindo os comandos necessários para executar as migrations:
-
 ---
 
 # Changelog
@@ -46,7 +44,3 @@ Usamos **Semantic Versioning**:
 - **Major (X.0.0)**: Mudanças que quebram compatibilidade.
 - **Minor (0.X.0)**: Funcionalidades novas, compatíveis com versões anteriores.
 - **Patch (0.0.X)**: Correções de bugs ou melhorias menores.
-
----
-
-Se precisar de mais ajustes ou detalhes, é só avisar! 🚀
