@@ -14,18 +14,13 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    if (!createUserDto.email || createUserDto.email.trim() === '') {
-      throw new BadRequestException('Email cannot be empty');
-    }
+    await this.validateEmail(createUserDto.email);
+    const hashedPassword = await this.hashPassword(createUserDto.password);
 
-    if (!createUserDto.password) {
-      throw new BadRequestException('Password cannot be empty');
-    }
-
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    createUserDto.password = hashedPassword;
-
-    const user = this.repository.create(createUserDto);
+    const user = this.repository.create({
+      ...createUserDto,
+      password: hashedPassword,
+    });
     return this.repository.save(user);
   }
 
@@ -46,7 +41,7 @@ export class UsersService {
     if (!user) {
       return null;
     }
-    
+
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
     }
@@ -63,7 +58,16 @@ export class UsersService {
     return this.repository.remove(user);
   }
 
-  async validatePassword(password: string, userPassword: string): Promise<boolean> {
-    return await bcrypt.compare(password, userPassword);
+  private async validateEmail(email: string): Promise<void> {
+    const existingUser = await this.repository.findOne({ where: { email } });
+
+    if (existingUser) {
+      throw new BadRequestException('Email is already in use.');
+    }
+  }
+
+  private async hashPassword(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt(12);
+    return bcrypt.hash(password, salt);
   }
 }
