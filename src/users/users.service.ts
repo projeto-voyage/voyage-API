@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -12,33 +13,57 @@ export class UsersService {
     private readonly repository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    if (!createUserDto.email || createUserDto.email.trim() === '') {
+      throw new BadRequestException('Email cannot be empty');
+    }
+
+    if (!createUserDto.password) {
+      throw new BadRequestException('Password cannot be empty');
+    }
+
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    createUserDto.password = hashedPassword;
+
     const user = this.repository.create(createUserDto);
     return this.repository.save(user);
   }
 
-  findAll() {
+  async findAll(): Promise<User[]> {
     return this.repository.find();
   }
 
-  findOne(id: string) {
+  async findOne(id: string): Promise<User | null> {
     return this.repository.findOneBy({ id });
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
+    if (updateUserDto.email && updateUserDto.email.trim() === '') {
+      throw new BadRequestException('Email cannot be empty');
+    }
+
     const user = await this.repository.findOneBy({ id });
     if (!user) {
       return null;
     }
+    
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
+
     this.repository.merge(user, updateUserDto);
     return this.repository.save(user);
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<User | null> {
     const user = await this.repository.findOneBy({ id });
     if (!user) {
       return null;
     }
     return this.repository.remove(user);
+  }
+
+  async validatePassword(password: string, userPassword: string): Promise<boolean> {
+    return await bcrypt.compare(password, userPassword);
   }
 }
