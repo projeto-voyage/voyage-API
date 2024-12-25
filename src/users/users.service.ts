@@ -58,6 +58,10 @@ export class UsersService {
     return this.repository.remove(user);
   }
 
+  async findByEmail(email: string): Promise<User | null> {
+    return this.repository.findOne({ where: { email } });
+  }
+
   private async validateEmail(email: string): Promise<void> {
     const existingUser = await this.repository.findOne({ where: { email } });
 
