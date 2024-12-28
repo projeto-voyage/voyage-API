@@ -1,3 +1,6 @@
+
+---
+
 # Voyage-API
 
 **Voyage-API** é a API central de uma plataforma de turismo inteligente, projetada para gerar roteiros personalizados com base em preferências de tempo, destino e orçamento dos usuários. Desenvolvida em **NestJS** e utilizando **PostgreSQL** como banco de dados, a API integra sistemas externos e oferece uma solução escalável e eficiente para planejamento de viagens.
@@ -55,12 +58,8 @@ Ter duas branches permite um processo de desenvolvimento mais organizado e contr
 
 ---
 
-## Tecnologias Utilizadas
+## Mais Detalhes da API
 
-### NestJS
+Para mais informações sobre a implementação e detalhes técnicos da **Voyage-API**, consulte a [**documentação completa da API**](./docs/index.md). Lá você encontrará informações detalhadas sobre como configurar, usar e expandir a API conforme necessário.
 
-O **NestJS** é um framework para construir aplicações Node.js escaláveis, eficiente e de fácil manutenção. Ele proporciona uma estrutura sólida para o desenvolvimento de APIs RESTful e microserviços.
-
-### PostgreSQL
-
-**PostgreSQL** é um sistema de gerenciamento de banco de dados relacional poderoso e de código aberto. É a escolha ideal para o gerenciamento eficiente e escalável dos dados do projeto, garantindo alta disponibilidade e integridade.
+---
