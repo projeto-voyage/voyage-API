@@ -21,7 +21,11 @@ export class UsersService {
       ...createUserDto,
       password: hashedPassword,
     });
-    return this.repository.save(user);
+
+    const newUser = await this.repository.save(user);
+    delete newUser.password;
+
+    return newUser;
   }
 
   async findAll(): Promise<User[]> {
