@@ -37,4 +37,8 @@ export class AppConfigService {
     get getJwtSecret(): string {
         return this.config.get<string>('JWT_SECRET');
     }
+
+    get getSaltRounds(): number {
+        return this.config.get<number>('SALT_ROUNDS');
+    }
 }
