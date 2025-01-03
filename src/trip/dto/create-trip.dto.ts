@@ -10,6 +10,7 @@ export class CreateTripDto {
   @IsNumber()
   budget: number;
 
+  @IsString()
   @IsUUID()
   userId: string;
 }

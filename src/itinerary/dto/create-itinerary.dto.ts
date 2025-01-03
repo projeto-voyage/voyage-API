@@ -5,11 +5,12 @@ export class CreateItineraryDto {
   destination: string;
 
   @IsString()
-  activities: string; // JSON como string para atividades
+  activities: string; 
 
   @IsNumber()
   totalCost: number;
 
+  @IsString()
   @IsUUID()
-  tripId: string; // Relaciona o roteiro à viagem
+  tripId: string; 
 }

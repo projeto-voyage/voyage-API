@@ -5,18 +5,26 @@ import { Repository } from 'typeorm';
 import { Itinerary } from './entities/itinerary.entity';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
 import { UpdateItineraryDto } from './dto/update-itinerary.dto';
+import { Trip } from 'src/trip/entities/trip.entity';
 
 @Injectable()
 export class ItineraryService {
   constructor(
     @InjectRepository(Itinerary)
     private readonly itineraryRepository: Repository<Itinerary>,
+    @InjectRepository(Trip)
+    private readonly tripRepository: Repository<Trip>,
   ) {}
 
   async createItinerary(
     createItineraryDto: CreateItineraryDto,
   ): Promise<Itinerary> {
-    const itinerary = this.itineraryRepository.create(createItineraryDto);
+    const trip = await this.getTripDetails(createItineraryDto);
+
+    const itinerary = this.itineraryRepository.create({
+      ...createItineraryDto,
+      trip,
+    });
     return this.itineraryRepository.save(itinerary);
   }
 
@@ -49,5 +57,18 @@ export class ItineraryService {
     if (result.affected === 0) {
       throw new NotFoundException(`Itinerary with ID ${id} not found`);
     }
+  }
+
+  private async getTripDetails(createItineraryDto: CreateItineraryDto) {
+    const trip = await this.tripRepository.findOne({
+      where: { id: createItineraryDto.tripId },
+    });
+
+    if (!trip) {
+      throw new NotFoundException(
+        `Trip with ID ${createItineraryDto.tripId} not found`,
+      );
+    }
+    return trip;
   }
 }
