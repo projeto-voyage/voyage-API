@@ -1,24 +1,24 @@
 // import { MigrationInterface, QueryRunner } from 'typeorm';
 
-// export class Trips1735913041249 implements MigrationInterface {
+// export class ItineraryMigration1678901234567 implements MigrationInterface {
 //   public async up(queryRunner: QueryRunner): Promise<void> {
 //     await queryRunner.query(`
-//       CREATE TABLE IF NOT EXISTS trips (
+//       CREATE TABLE IF NOT EXISTS itineraries (
 //         id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-//         userId UUID NOT NULL,
+//         tripId UUID NOT NULL,
 //         destination VARCHAR(255) NOT NULL,
-//         duration INT NOT NULL,
-//         budget DECIMAL(10, 2) NOT NULL,
+//         activities TEXT NOT NULL DEFAULT '[]', -- JSON para armazenar atividades (opcionalmente)
+//         totalCost DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
 //         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 //         updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-//         CONSTRAINT fk_user FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
+//         CONSTRAINT FK_trip FOREIGN KEY (tripId) REFERENCES trips(id) ON DELETE CASCADE
 //       );
 //     `);
 //   }
 
 //   public async down(queryRunner: QueryRunner): Promise<void> {
 //     await queryRunner.query(`
-//       DROP TABLE IF EXISTS trips;
+//       DROP TABLE IF EXISTS itineraries;
 //     `);
 //   }
 // }

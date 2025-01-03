@@ -5,17 +5,15 @@ export class InsertDevUser1673456442239 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const hashedPassword = await bcrypt.hash('desenvolve123', 12);  // Encriptando a senha
 
-    await queryRunner.query(`
-      INSERT INTO users (id, name, email, password) 
-      VALUES 
-        (uuid_generate_v4(), 'Dev', 'dev@example.com', '${hashedPassword}');
-    `);
+    await queryRunner.manager.insert('users', {
+      id: 'uuid_generate_v4()',
+      name: 'Dev',
+      email: 'dev@example.com',
+      password: hashedPassword,
+    });
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`
-      DELETE FROM users
-      WHERE email = 'dev@example.com';
-    `);
+    await queryRunner.manager.delete('users', { email: 'dev@example.com' });
   }
 }

@@ -1,7 +1,9 @@
+import { Trip } from 'src/trip/entities/trip.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -21,4 +23,7 @@ export class User {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @OneToMany(() => Trip, (trip) => trip.user)
+  trips: Trip[];
 }
