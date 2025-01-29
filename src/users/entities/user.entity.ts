@@ -1,4 +1,3 @@
-import { Trip } from 'src/trip/entities/trip.entity';
 import {
   Column,
   CreateDateColumn,
@@ -23,7 +22,4 @@ export class User {
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @OneToMany(() => Trip, (trip) => trip.user)
-  trips: Trip[];
 }
