@@ -41,4 +41,8 @@ export class AppConfigService {
     get getSaltRounds(): number {
         return this.config.get<number>('SALT_ROUNDS');
     }
+
+    get getGeminiApiKey(): string {
+        return this.config.get<string>('GEMINI_API_KEY');
+    }
 }
