@@ -5,14 +5,14 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { AppConfigService } from 'src/app-config/app-config.service';
+import { EnvService } from 'src/env/env.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly repository: Repository<User>,
-    private readonly appConfigService: AppConfigService, 
+    private readonly configService: EnvService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -77,14 +77,12 @@ export class UsersService {
   }
 
   private async hashPassword(password: string): Promise<string> {
-    const saltRounds = await this.getSaltRounds(); 
+    const saltRounds = await this.getSaltRounds();
     const salt = await bcrypt.genSalt(saltRounds);
     return bcrypt.hash(password, salt);
   }
 
   private async getSaltRounds(): Promise<number> {
-    return this.appConfigService.getSaltRounds; 
+    return this.configService.getSaltRounds;
   }
-  
-  
 }

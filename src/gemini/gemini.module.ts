@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { GeminiService } from './gemini.service';
-import { AppConfigModule } from 'src/app-config/app-config.module';
+import { EnvModule } from 'src/env/env.module';
 
 @Module({
-  imports: [AppConfigModule],
+  imports: [EnvModule],
   providers: [GeminiService],
   exports: [GeminiService],
 })
