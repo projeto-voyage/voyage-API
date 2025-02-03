@@ -1,16 +1,12 @@
-import { IsString, IsNumber, IsUUID, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsUUID, IsOptional, IsInt } from 'class-validator';
 
 export class CreateItineraryDto {
   @IsString()
   destination: string;
 
-  @IsString()
-  activities: string; 
+  @IsInt()
+  totalDays: number; 
 
   @IsNumber()
-  totalCost: number;
-
-  @IsString()
-  @IsUUID()
-  tripId: string; 
+  totalCost: number; 
 }

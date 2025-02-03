@@ -20,6 +20,9 @@ export class Itinerary {
   @Column('decimal', { precision: 10, scale: 2, default: 0 })
   totalCost: number;
 
+  @Column('text')
+  content: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

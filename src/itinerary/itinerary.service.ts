@@ -2,24 +2,35 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Itinerary } from './entities/itinerary.entity';
-import { CreateItineraryDto } from './dto/create-itinerary.dto';
 import { UpdateItineraryDto } from './dto/update-itinerary.dto';
+import { GeminiService } from 'src/gemini/gemini.service';
 @Injectable()
 export class ItineraryService {
   constructor(
     @InjectRepository(Itinerary)
     private readonly itineraryRepository: Repository<Itinerary>,
+    private readonly geminiService: GeminiService,
   ) {}
 
-  async createItinerary(
-    createItineraryDto: CreateItineraryDto,
+  async create(
+    destination: string,
+    totalDays: number,
+    totalCost: number,
   ): Promise<Itinerary> {
+    const prompt = `Crie um roteiro detalhado de ${totalDays} dias para ${destination}. 
+    Inclua sugestões de passeios, alimentação e transporte com um orçamento de R$ ${totalCost}.`;
+
+    const content = await this.geminiService.genarateItinerary(prompt);
+
     const itinerary = this.itineraryRepository.create({
-      ...createItineraryDto,
+      destination,
+      totalDays,
+      totalCost,
+      content,
     });
+
     return this.itineraryRepository.save(itinerary);
   }
-
   async findAll(): Promise<Itinerary[]> {
     return this.itineraryRepository.find();
   }

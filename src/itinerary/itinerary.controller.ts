@@ -19,10 +19,10 @@ export class ItineraryController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createItineraryDto: CreateItineraryDto) {
-    return this.itineraryService.createItinerary(createItineraryDto);
+  async createItinerary(@Body() createItineraryDto: CreateItineraryDto) {
+    const { destination, totalDays, totalCost } = createItineraryDto;
+    return this.itineraryService.create(destination, totalDays, totalCost);
   }
-
   @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
