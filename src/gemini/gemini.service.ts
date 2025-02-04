@@ -11,8 +11,7 @@ export class GeminiService {
     private readonly httpService: HttpService,
     private readonly configService: EnvService,
   ) {
-    this.geminiApiUrl =
-      'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
+    this.geminiApiUrl = this.configService.getGeminiApiUrl;
     this.geminiApiKey = this.configService.getGeminiApiKey;
   }
 

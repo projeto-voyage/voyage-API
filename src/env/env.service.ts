@@ -45,4 +45,8 @@ export class EnvService {
     get getGeminiApiKey(): string {
         return this.config.get<string>('GEMINI_API_KEY');
     }
+
+    get getGeminiApiUrl(): string {
+        return this.config.get<string>('GEMINI_API_URL');
+    }
 }
