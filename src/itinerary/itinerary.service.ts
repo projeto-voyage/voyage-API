@@ -4,6 +4,9 @@ import { Repository } from 'typeorm';
 import { Itinerary } from './entities/itinerary.entity';
 import { UpdateItineraryDto } from './dto/update-itinerary.dto';
 import { GeminiService } from 'src/gemini/gemini.service';
+import * as fs from 'fs';
+import * as path from 'path';
+
 @Injectable()
 export class ItineraryService {
   constructor(
@@ -22,42 +25,49 @@ export class ItineraryService {
 
     const content = await this.geminiService.genarateItinerary(prompt);
 
+    // Criar diretório se não existir
+    const dirPath = path.join(__dirname, '../../itineraries');
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+
+    // Nome do arquivo (UUID)
+    const fileName = `${crypto.randomUUID()}.txt`;
+    const filePath = path.join(dirPath, fileName);
+
+    // Salvar conteúdo no arquivo
+    fs.writeFileSync(filePath, content);
+
     const itinerary = this.itineraryRepository.create({
       destination,
       totalDays,
       totalCost,
-      content,
+      filePath, // Armazena apenas o caminho
     });
 
     return this.itineraryRepository.save(itinerary);
-  }
-  async findAll(): Promise<Itinerary[]> {
-    return this.itineraryRepository.find();
   }
 
   async findById(id: string): Promise<Itinerary> {
     const itinerary = await this.itineraryRepository.findOne({
       where: { id },
     });
+
     if (!itinerary) {
       throw new NotFoundException(`Itinerary with ID ${id} not found`);
     }
+
     return itinerary;
   }
 
-  async updateItinerary(
-    id: string,
-    updateItineraryDto: UpdateItineraryDto,
-  ): Promise<Itinerary> {
+  async getItineraryContent(id: string): Promise<string> {
     const itinerary = await this.findById(id);
-    Object.assign(itinerary, updateItineraryDto);
-    return this.itineraryRepository.save(itinerary);
-  }
 
-  async deleteItinerary(id: string): Promise<void> {
-    const result = await this.itineraryRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Itinerary with ID ${id} not found`);
+    // Verifica se o arquivo existe antes de ler
+    if (!fs.existsSync(itinerary.filePath)) {
+      throw new NotFoundException('Arquivo de roteiro não encontrado.');
     }
+
+    return fs.readFileSync(itinerary.filePath, 'utf8');
   }
 }
