@@ -7,8 +7,8 @@ export class ItineraryMigration1678901234567 implements MigrationInterface {
         id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
         destination VARCHAR(255) NOT NULL,
         totalCost DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-        filePath VARCHAR(255), -- Apenas armazenando o caminho do arquivo
         totalDays INT NOT NULL,
+        content JSONB NOT NULL,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       );

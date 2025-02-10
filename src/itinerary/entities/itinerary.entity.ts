@@ -1,8 +1,8 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -14,14 +14,14 @@ export class Itinerary {
   @Column()
   destination: string;
 
-  @Column()
-  totalDays: number;
-
-  @Column('decimal', { precision: 10, scale: 2, default: 0 })
+  @Column('decimal', { precision: 10, scale: 2, default: 0.0 })
   totalCost: number;
 
   @Column()
-  filePath: string; 
+  totalDays: number;
+
+  @Column('json', { nullable: false }) 
+  content: any;
 
   @CreateDateColumn()
   createdAt: Date;
