@@ -39,7 +39,7 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
-    if (updateUserDto.email && updateUserDto.email.trim() === '') {
+    if (updateUserDto.email !== undefined && updateUserDto.email.trim() === '') {
       throw new BadRequestException('Email cannot be empty');
     }
 
