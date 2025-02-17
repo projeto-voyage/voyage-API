@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { ItineraryService } from './itinerary.service';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { MultiAuthGuard } from 'src/auth/guard/multi-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { MultiAuthGuard } from 'src/auth/guards/multi-auth.guard';
 
 @Controller('itineraries')
 export class ItineraryController {
