@@ -2,12 +2,14 @@ import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { ItineraryService } from './itinerary.service';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+import { MultiAuthGuard } from 'src/auth/guard/multi-auth.guard';
 
 @Controller('itineraries')
 export class ItineraryController {
   constructor(private readonly itineraryService: ItineraryService) {}
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
+  @UseGuards(MultiAuthGuard)
   @Post()
   async createItinerary(@Body() createItineraryDto: CreateItineraryDto) {
     const { destination, totalDays, totalCost } = createItineraryDto;

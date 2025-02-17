@@ -49,4 +49,16 @@ export class EnvService {
     get getGeminiApiUrl(): string {
         return this.config.get<string>('GEMINI_API_URL');
     }
+
+    get getClientID(): string {
+        return this.config.get<string>('GOOGLE_CLIENT_ID');
+    }
+
+    get getClientSecret(): string {
+        return this.config.get<string>('GOOGLE_CLIENT_SECRET');
+    }
+
+    get getCallbackURL(): string {
+        return this.config.get<string>('GOOGLE_CALLBACK_URL');
+    }
 }
