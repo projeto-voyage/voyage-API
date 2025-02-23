@@ -17,6 +17,17 @@ export class ItineraryService {
     totalDays: number,
     totalCost: number,
   ): Promise<Itinerary> {
+
+    if (!destination) {
+      throw new Error('Destination cannot be empty');
+    }
+    if (totalDays < 1) {
+      throw new Error('Total days must be at least 1');
+    }
+    if (totalCost < 0) {
+      throw new Error('Total cost must be a positive value');
+    }
+
     const prompt = `Crie um roteiro detalhado de ${totalDays} dias para ${destination}. 
     Inclua sugestões de passeios, alimentação e transporte com um orçamento de R$ ${totalCost}.`;
 
