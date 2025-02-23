@@ -1,15 +1,21 @@
-import { Controller, Get, Post, Body, Param, UseGuards, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  BadRequestException,
+} from '@nestjs/common';
 import { ItineraryService } from './itinerary.service';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { MultiAuthGuard } from '../auth/guards/multi-auth.guard';
 
 @Controller('itineraries')
 export class ItineraryController {
   constructor(private readonly itineraryService: ItineraryService) {}
 
-  // @UseGuards(JwtAuthGuard)
-  @UseGuards(MultiAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   async createItinerary(@Body() createItineraryDto: CreateItineraryDto) {
     const { destination, totalDays, totalCost } = createItineraryDto;
@@ -24,7 +30,7 @@ export class ItineraryController {
     if (totalCost < 1) {
       throw new BadRequestException('Total cost must be at least 1');
     }
-    
+
     return this.itineraryService.create(destination, totalDays, totalCost);
   }
 
