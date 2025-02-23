@@ -59,7 +59,7 @@ export class UsersService {
   async remove(id: string): Promise<User | null> {
     const user = await this.repository.findOneBy({ id });
     if (!user) {
-      return null;
+      throw new BadRequestException('User not found');
     }
     return this.repository.remove(user);
   }

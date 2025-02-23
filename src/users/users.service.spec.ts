@@ -33,7 +33,6 @@ describe('UsersService', () => {
     merge: jest.fn().mockImplementation((user, updateUserDto) => ({ ...user, ...updateUserDto })),
   };
   
-
   const mockEnvService = {
     getSaltRounds: jest.fn().mockReturnValue(10),
   };
@@ -61,7 +60,7 @@ describe('UsersService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should create a user', async () => {
+  it('should create a user successfully', async () => {
     jest.spyOn(bcrypt, 'hash').mockImplementation(async () => 'hashed-password');
     (service as any).validateEmail = jest.fn().mockResolvedValue(undefined);
 
@@ -71,8 +70,15 @@ describe('UsersService', () => {
     expect(result).toHaveProperty('id', '1');
     expect(result).toHaveProperty('name', 'John Doe');
     expect(result).toHaveProperty('email', 'john@example.com');
-    expect(result).not.toHaveProperty('password'); // Senha removida na resposta
+    expect(result).not.toHaveProperty('password'); 
   });
+
+  it('should throw an error when creating a user with an existing email', async () => {
+    (service as any).validateEmail = jest.fn().mockRejectedValue(new BadRequestException('Email is already in use.'));
+
+    const createUserDto = { name: 'John Doe', email: 'john@example.com', password: '123456' };
+    await expect(service.create(createUserDto)).rejects.toThrow(BadRequestException);
+  }); 
 
   it('should return all users', async () => {
     const result = await service.findAll();
@@ -84,12 +90,12 @@ describe('UsersService', () => {
     expect(result).toEqual(mockUser);
   });
 
-  it('should return null when user not found', async () => {
+  it('should return null when user not found by ID', async () => {
     const result = await service.findOne('999');
     expect(result).toBeNull();
   });
 
-  it('should update a user', async () => {
+  it('should update a user successfully', async () => {
     const updateUserDto = { name: 'Updated Name' };
     const updatedUser = { ...mockUser, ...updateUserDto };
 
@@ -106,9 +112,9 @@ describe('UsersService', () => {
   it('should return null when updating a non-existing user', async () => {
     const result = await service.update('999', { name: 'Non-existing' });
     expect(result).toBeNull();
-  });
+  }); 
 
-  it('should delete a user', async () => {
+  it('should delete a user successfully', async () => {
     const result = await service.remove('1');
     expect(result).toEqual(mockUser);
   });
@@ -117,5 +123,31 @@ describe('UsersService', () => {
     mockUserRepository.findOneBy.mockResolvedValue(null);
     const result = await service.remove('999');
     expect(result).toBeNull();
+  });
+
+  it('should throw error when trying to delete a user that does not exist', async () => {
+    mockUserRepository.findOneBy.mockResolvedValue(null);
+    await expect(service.remove('999')).resolves.toBeNull();
+  });  
+
+  it('should throw an error when creating a user with an existing email', async () => {
+    (service as any).validateEmail = jest.fn().mockRejectedValue(new BadRequestException('Email is already in use.'));
+    const createUserDto = { name: 'John Doe', email: 'john@example.com', password: '123456' };
+    await expect(service.create(createUserDto)).rejects.toThrow(BadRequestException);
+  });
+
+  it('should call hashPassword when creating a user', async () => {
+    const createUserDto = { name: 'Hash User', email: 'hash@example.com', password: 'strong-password' };
+    const hashSpy = jest.spyOn(service as any, 'hashPassword');
+    
+    await service.create(createUserDto);
+    expect(hashSpy).toHaveBeenCalledWith('strong-password');
+  });  
+
+  it('should call validateEmail when creating a user', async () => {
+    const createUserDto = { name: 'John Doe', email: 'john@example.com', password: '123456' };
+    const validateEmailSpy = jest.spyOn(service as any, 'validateEmail').mockResolvedValue(undefined);
+    await service.create(createUserDto);
+    expect(validateEmailSpy).toHaveBeenCalledWith('john@example.com');
   });
 });
