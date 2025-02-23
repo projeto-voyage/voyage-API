@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Itinerary } from './entities/itinerary.entity';
-import { GeminiService } from 'src/gemini/gemini.service';
+import { GeminiService } from '../gemini/gemini.service';
 
 @Injectable()
 export class ItineraryService {

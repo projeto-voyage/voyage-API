@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EnvService } from 'src/env/env.service';
+import { EnvService } from '../env/env.service';
 import { HttpService } from '@nestjs/axios';
 
 @Injectable()
