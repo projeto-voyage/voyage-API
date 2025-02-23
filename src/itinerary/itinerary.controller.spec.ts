@@ -2,8 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ItineraryController } from './itinerary.controller';
 import { ItineraryService } from './itinerary.service';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { MultiAuthGuard } from 'src/auth/guards/multi-auth.guard';
 import { BadRequestException } from '@nestjs/common';
 
 describe('ItineraryController', () => {
