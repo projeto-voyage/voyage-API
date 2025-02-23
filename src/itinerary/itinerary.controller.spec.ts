@@ -4,6 +4,7 @@ import { ItineraryService } from './itinerary.service';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { MultiAuthGuard } from 'src/auth/guards/multi-auth.guard';
+import { BadRequestException } from '@nestjs/common';
 
 describe('ItineraryController', () => {
   let controller: ItineraryController;
@@ -37,6 +38,9 @@ describe('ItineraryController', () => {
 
     controller = module.get<ItineraryController>(ItineraryController);
     itineraryService = module.get<ItineraryService>(ItineraryService);
+
+    // Limpar os mocks antes de cada teste
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
@@ -63,6 +67,39 @@ describe('ItineraryController', () => {
         dto.totalCost,
       );
     });
+
+    it('should throw an error if the destination is not provided', async () => {
+      const dto: CreateItineraryDto = {
+        destination: '',
+        totalDays: 7,
+        totalCost: 2000,
+      };
+
+      await expect(controller.createItinerary(dto)).rejects.toThrow(BadRequestException);
+      expect(itineraryService.create).not.toHaveBeenCalled();
+    });
+
+    it('should throw an error if totalDays is less than 1', async () => {
+      const dto: CreateItineraryDto = {
+        destination: 'New York',
+        totalDays: 0,
+        totalCost: 2000,
+      };
+  
+      await expect(controller.createItinerary(dto)).rejects.toThrow(BadRequestException);
+      expect(itineraryService.create).not.toHaveBeenCalled();
+    });
+  
+    it('should throw an error if totalCost is less than 1', async () => {
+      const dto: CreateItineraryDto = {
+        destination: 'New York',
+        totalDays: 7,
+        totalCost: 0,
+      };
+  
+      await expect(controller.createItinerary(dto)).rejects.toThrow(BadRequestException);
+      expect(itineraryService.create).not.toHaveBeenCalled();
+    });
   });
 
   describe('getItinerary', () => {
@@ -78,5 +115,25 @@ describe('ItineraryController', () => {
 
       expect(itineraryService.findById).toHaveBeenCalledWith(id);
     });
+
+    it('should throw an error if the itinerary does not exist', async () => {
+      const id = '2';
+      (itineraryService.findById as jest.Mock).mockImplementationOnce(() => {
+        throw new Error('Itinerary not found');
+      });
+
+      await expect(controller.getItinerary(id)).rejects.toThrow('Itinerary not found');
+      expect(itineraryService.findById).toHaveBeenCalledWith(id);
+    });
+
+    it('should return an empty itinerary if no itinerary exists for the given ID', async () => {
+      const id = '3';
+      (itineraryService.findById as jest.Mock).mockReturnValueOnce(null);
+  
+      const result = await controller.getItinerary(id);
+      expect(result).toBeNull(); 
+      expect(itineraryService.findById).toHaveBeenCalledWith(id);
+    });
   });
 });
+
