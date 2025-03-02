@@ -119,16 +119,17 @@ describe('UsersService', () => {
     expect(result).toEqual(mockUser);
   });
 
-  it('should return null when deleting a non-existing user', async () => {
+  it('should throw error when deleting a non-existing user', async () => {
     mockUserRepository.findOneBy.mockResolvedValue(null);
-    const result = await service.remove('999');
-    expect(result).toBeNull();
+    await expect(service.remove('999')).rejects.toThrow(BadRequestException);
   });
+  
 
   it('should throw error when trying to delete a user that does not exist', async () => {
     mockUserRepository.findOneBy.mockResolvedValue(null);
-    await expect(service.remove('999')).resolves.toBeNull();
-  });  
+    await expect(service.remove('999')).rejects.toThrow('User not found');
+  });
+  
 
   it('should throw an error when creating a user with an existing email', async () => {
     (service as any).validateEmail = jest.fn().mockRejectedValue(new BadRequestException('Email is already in use.'));
